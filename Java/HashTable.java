@@ -1,6 +1,7 @@
 class hashTable{
     private static final int SIZE = 10;
     private Object[] table;
+    
     public hashTable() {
         this.table = new Object[SIZE];
         for (var each : table) {

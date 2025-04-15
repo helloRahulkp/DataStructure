@@ -167,5 +167,10 @@ public class LinkedList {
         list.removeByValue("Grapes");
         list.display(); 
     }
+
+    public void add(int i) {
+        // TODO Auto-generated method stub
+        throw new UnsupportedOperationException("Unimplemented method 'add'");
+    }
     
 }
