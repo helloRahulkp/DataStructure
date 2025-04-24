@@ -1,11 +1,14 @@
 #include <stdio.h>
 #include <stdlib.h>
 #include <stdbool.h>
+
 #define MAX 10
+
 typedef struct {
     int top;
     int arr[MAX];
 } Stack;
+
 void initStack(Stack* stack) {
     stack->top = -1;
 }
