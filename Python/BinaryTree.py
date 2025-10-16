@@ -4,16 +4,20 @@ class Node:
         self.left = None
         self.right = None
 
-# Create binary tree automatically using level order
-def insert_level_order(arr, i):
-    if i < len(arr):
-        root = Node(arr[i])
-        root.left = insert_level_order(arr, 2 * i + 1)
-        root.right = insert_level_order(arr, 2 * i + 2)
-        return root
-    return None
+# Build tree interactively
+def build_tree():
+    value = int(input("Enter node value (-1 to stop): "))
+    if value == -1:
+        return None
 
-# Preorder Traversal (Root -> Left -> Right)
+    root = Node(value)
+    print(f"Left child of {value}")
+    root.left = build_tree()
+    print(f"Right child of {value}")
+    root.right = build_tree()
+    return root
+
+# Traversals
 def preorder(root):
     if root is None:
         return
@@ -21,7 +25,6 @@ def preorder(root):
     preorder(root.left)
     preorder(root.right)
 
-# Inorder Traversal (Left -> Root -> Right)
 def inorder(root):
     if root is None:
         return
@@ -29,7 +32,6 @@ def inorder(root):
     print(root.data, end=" ")
     inorder(root.right)
 
-# Postorder Traversal (Left -> Right -> Root)
 def postorder(root):
     if root is None:
         return
@@ -37,13 +39,11 @@ def postorder(root):
     postorder(root.right)
     print(root.data, end=" ")
 
-# Height of tree
 def height(root):
     if root is None:
         return 0
     return max(height(root.left), height(root.right)) + 1
 
-# Width of a given level
 def get_width(root, level):
     if root is None:
         return 0
@@ -51,7 +51,6 @@ def get_width(root, level):
         return 1
     return get_width(root.left, level - 1) + get_width(root.right, level - 1)
 
-# Maximum width of tree
 def max_width(root):
     h = height(root)
     max_w = 0
@@ -63,8 +62,7 @@ def max_width(root):
 
 # Driver code
 if __name__ == "__main__":
-    arr = [1, 2, 3, 4, 5, 6, 7]  # Tree values
-    root = insert_level_order(arr, 0)
+    root = build_tree()
 
     print("Preorder:", end=" ")
     preorder(root)

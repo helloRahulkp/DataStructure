@@ -17,75 +17,75 @@ struct Node* createNode(int data) {
     return newNode;
 }
 
-// Insert nodes in level order (automated tree creation)
-struct Node* insertLevelOrder(int arr[], int i, int n) {
-    if (i < n) {
-        struct Node* root = createNode(arr[i]);
-        root->left = insertLevelOrder(arr, 2 * i + 1, n);
-        root->right = insertLevelOrder(arr, 2 * i + 2, n);
-        return root;
-    }
-    return NULL;
+// Build tree interactively
+struct Node* buildTree() {
+    int value;
+    struct Node* root = NULL;
+
+    printf("Enter node value (-1 to stop): ");
+    scanf("%d", &value);
+
+    if (value == -1) return NULL;
+
+    root = createNode(value);
+
+    printf("Left child of %d\n", value);
+    root->left = buildTree();
+
+    printf("Right child of %d\n", value);
+    root->right = buildTree();
+
+    return root;
 }
 
-// Calculate height of the tree
-int height(struct Node* root) {
-    if (root == NULL)
-        return 0;
-    int lh = height(root->left);
-    int rh = height(root->right);
-    return (lh > rh ? lh : rh) + 1;
-}
-
-// Get width of a given level
-int getWidth(struct Node* root, int level) {
-    if (root == NULL)
-        return 0;
-    if (level == 1)
-        return 1;
-    return getWidth(root->left, level - 1) + getWidth(root->right, level - 1);
-}
-
-// Get maximum width of the tree
-int getMaxWidth(struct Node* root) {
-    int maxWidth = 0;
-    int h = height(root);
-    for (int i = 1; i <= h; i++) {
-        int width = getWidth(root, i);
-        if (width > maxWidth)
-            maxWidth = width;
-    }
-    return maxWidth;
-}
-
-// Tree Traversals
+// Tree traversals
 void preorder(struct Node* root) {
-    if (root == NULL) return;
+    if (!root) return;
     printf("%d ", root->data);
     preorder(root->left);
     preorder(root->right);
 }
 
 void inorder(struct Node* root) {
-    if (root == NULL) return;
+    if (!root) return;
     inorder(root->left);
     printf("%d ", root->data);
     inorder(root->right);
 }
 
 void postorder(struct Node* root) {
-    if (root == NULL) return;
+    if (!root) return;
     postorder(root->left);
     postorder(root->right);
     printf("%d ", root->data);
 }
 
-int main() {
-    int arr[] = {1, 2, 3, 4, 5, 6, 7};
-    int n = sizeof(arr) / sizeof(arr[0]);
+// Height and width functions
+int height(struct Node* root) {
+    if (!root) return 0;
+    int lh = height(root->left);
+    int rh = height(root->right);
+    return (lh > rh ? lh : rh) + 1;
+}
 
-    // Create binary tree automatically from array
-    struct Node* root = insertLevelOrder(arr, 0, n);
+int getWidth(struct Node* root, int level) {
+    if (!root) return 0;
+    if (level == 1) return 1;
+    return getWidth(root->left, level - 1) + getWidth(root->right, level - 1);
+}
+
+int getMaxWidth(struct Node* root) {
+    int maxWidth = 0;
+    int h = height(root);
+    for (int i = 1; i <= h; i++) {
+        int width = getWidth(root, i);
+        if (width > maxWidth) maxWidth = width;
+    }
+    return maxWidth;
+}
+
+int main() {
+    struct Node* root = buildTree();
 
     printf("Preorder: ");
     preorder(root);
@@ -94,8 +94,6 @@ int main() {
     printf("\nPostorder: ");
     postorder(root);
 
-    int width = getMaxWidth(root);
-    printf("\n\nMaximum Width of Tree: %d\n", width);
-
+    printf("\n\nMaximum Width of Tree: %d\n", getMaxWidth(root));
     return 0;
 }
