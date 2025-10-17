@@ -29,6 +29,10 @@ Data Structure/
 	•	Java: javac Filename.java && java Filename
 	•	Python: python3 filename.py
 
+## 📄 License
+
+This project is licensed under the **MIT License** – see the [LICENSE](LICENSE) file for details.
+
 🤝 Contributions
 
 Contributions are welcome! Feel free to:
