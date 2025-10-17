@@ -34,7 +34,7 @@ class BinarySearchTree {
     }
 
     public static void main(String[] args) {
-        BST tree = new BST();
+        BinarySearchTree tree = new BinarySearchTree();
         Scanner sc = new Scanner(System.in);
         int value, key;
 
